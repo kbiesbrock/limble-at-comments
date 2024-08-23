@@ -1,0 +1,9 @@
+<form class="new-comment" validate (submit)="emitComment($event)">
+  <input
+    type="text"
+    id="comment"
+    [formControl]="comment"
+    placeholder="Enter a new comment"
+  />
+  <button class="add-comment" type="submit">Add Comment</button>
+</form>

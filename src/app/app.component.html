@@ -93,10 +93,13 @@
   <div class="content">
     <h1>{{ title }}</h1>
     <ul class="comments">
-      <li class="comment">This is a comment</li>
-      <li class="comment">This is another comment</li>
-      <li class="comment">This is yet another comment</li>
+      @for (item of comments;track item) {
+      <li class="comment">{{ item }}</li>
+      } @empty {
+      <li class="no comment">There are no comments.</li>
+      }
     </ul>
+    <new-comment (addNewComment)="comments.push($event.toString())" />
   </div>
 </main>
 
