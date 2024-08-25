@@ -123,7 +123,7 @@ export class NewCommentComponent {
     const cursorPosition: number = inputElement.selectionStart || 0;
     this.searchString = value.substring(lastAtIndex + 1, cursorPosition);
 
-    console.log(this.searchString, lastAtIndex, cursorPosition);
+    // console.log(this.searchString, lastAtIndex, cursorPosition);
 
     if (
       this.searchString.includes(' ') ||
