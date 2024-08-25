@@ -1,9 +1,42 @@
 <form class="new-comment" validate (submit)="emitComment($event)">
   <input
+    #commentInput
     type="text"
-    id="comment"
     [formControl]="comment"
+    (input)="onInputChange($event)"
+    tabindex="0"
+    (keydown)="onKeyPress($event)"
     placeholder="Enter a new comment"
+    autocomplete="off"
   />
   <button class="add-comment" type="submit">Add Comment</button>
 </form>
+
+@if (showSuggestions) {
+<ul class="suggestions">
+  @for (suggestion of filteredSuggestions; track suggestion.userID) {
+  <li
+    class="suggestion"
+    [class]="{
+      'selected-suggestion': $index === highlightedSuggestionIndex
+    }"
+    (click)="suggestionSelected(suggestion, commentInput)"
+    [innerHTML]="suggestion.name | highlight : searchString"
+  ></li>
+  } @empty {
+  <li>No matches</li>
+  }
+</ul>
+}
+
+<div class="preview" style="display: none">
+  <p>Comment: {{ comment.value || "No comment" }}</p>
+  <p>Tagged Users:</p>
+  <ul>
+    @for (user of taggedUserIDs; track user.userID) {
+    <li>{{ user.name }}</li>
+    } @empty {
+    <li>None</li>
+    }
+  </ul>
+</div>
