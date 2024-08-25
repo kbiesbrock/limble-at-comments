@@ -99,8 +99,13 @@
       <li class="no comment">There are no comments.</li>
       }
     </ul>
-    <new-comment (addNewComment)="comments.push($event.toString())" />
+    <new-comment (addNewComment)="saveNewCommentAndNotifyUsers($event)" />
   </div>
 </main>
+<ul class="activities">
+  @for (activity of activities; track $index) {
+  <li>{{ activity }}</li>
+  }
+</ul>
 
 <router-outlet />

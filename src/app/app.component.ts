@@ -17,4 +17,33 @@ export class AppComponent {
     'This is another comment',
     'This is yet another comment',
   ];
+  activities: string[] = [];
+
+  saveNewCommentAndNotifyUsers($event: {
+    comment: String;
+    taggedUsers: { userID: number; name: string }[];
+  }) {
+    const commentModel = this.saveComment($event.comment.toString());
+    this.notifyUsers($event.comment.toString(), $event.taggedUsers);
+    this.comments.push($event.comment.toString());
+  }
+
+  saveComment(comment: string) {
+    // const commentModel = saveToDatabase(comment);
+    // return commentModel;
+    this.activities.push(`Saved to database: ${comment}`);
+  }
+
+  notifyUsers(
+    commentModel: string,
+    taggedUsers: { userID: number; name: string }[]
+  ) {
+    if (!taggedUsers.length) {
+      return;
+    }
+    // emailUsers(taggedUsers, commentModel);
+    this.activities.push(
+      `Emailed users: ${taggedUsers.map((user) => user.name).join(', ')}`
+    );
+  }
 }
