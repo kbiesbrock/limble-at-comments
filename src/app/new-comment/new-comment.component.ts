@@ -160,8 +160,8 @@ export class NewCommentComponent {
     ) {
       this.highlightedSuggestionIndex = 0;
     } else {
-    this.highlightedSuggestionIndex += 1;
-  }
+      this.highlightedSuggestionIndex += 1;
+    }
     setTimeout(() => this.keepInView(), 100); // give angular a chance to modify dom
   }
 
