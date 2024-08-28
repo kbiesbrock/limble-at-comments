@@ -147,9 +147,10 @@ export class NewCommentComponent {
   decreaseSuggestionIndex() {
     if (this.highlightedSuggestionIndex <= 0) {
       this.highlightedSuggestionIndex = this.filteredSuggestions.length - 1;
-      return;
+    } else {
+      this.highlightedSuggestionIndex -= 1;
     }
-    this.highlightedSuggestionIndex -= 1;
+    setTimeout(() => this.keepInView(), 100); // give angular a chance to modify dom
   }
 
   increaseSuggestionIndex() {
@@ -158,9 +159,17 @@ export class NewCommentComponent {
       this.filteredSuggestions.length - 1
     ) {
       this.highlightedSuggestionIndex = 0;
-      return;
-    }
+    } else {
     this.highlightedSuggestionIndex += 1;
+  }
+    setTimeout(() => this.keepInView(), 100); // give angular a chance to modify dom
+  }
+
+  keepInView() {
+    const selectedSuggestion = document.querySelector(
+      '.suggestions .suggestion.selected-suggestion'
+    );
+    selectedSuggestion?.scrollIntoView();
   }
 
   suggestionSelected(selectedUser: User, inputElement: HTMLInputElement) {
