@@ -73,7 +73,7 @@ export class NewCommentComponent {
         break;
       case 'ArrowDown':
         event.preventDefault();
-        this.decreaseSuggestionIndex();
+        this.increaseSuggestionIndex();
         break;
       case 'Enter':
         event.preventDefault();
