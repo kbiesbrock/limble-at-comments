@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { HighlightPipe } from '../highlight/highlight.pipe';
 
@@ -16,7 +22,7 @@ type User = {
 export class NewCommentComponent {
   protected comment = new FormControl('');
   @ViewChild('commentInput', { static: false })
-  protected commentInputElement!: HTMLInputElement;
+  protected commentInputElement!: ElementRef<HTMLInputElement>;
   protected taggedUserIDs: User[] = [];
   protected searchString: string = '';
   protected filteredSuggestions: User[] = [];
@@ -79,7 +85,7 @@ export class NewCommentComponent {
         event.preventDefault();
         this.suggestionSelected(
           this.filteredSuggestions[this.highlightedSuggestionIndex],
-          this.commentInputElement
+          this.commentInputElement.nativeElement
         );
         this.resetSuggestions();
         break;
@@ -185,7 +191,6 @@ export class NewCommentComponent {
       lastAtIndex + 1 + this.searchString.length
     );
 
-    console.log(comment, this.searchString, selectedUser.name, updatedComment);
     this.comment.setValue(updatedComment);
     this.taggedUserIDs.includes(selectedUser) ||
       this.taggedUserIDs.push(selectedUser);
