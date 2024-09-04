@@ -124,6 +124,12 @@ export class NewCommentComponent {
       return;
     }
 
+    const lastChar = value[lastAtIndex - 1];
+    if (lastChar !== undefined && lastChar.match(/[a-zA-Z]/) !== null) {
+      this.resetSuggestions();
+      return;
+    }
+
     this.showSuggestions = true;
 
     const cursorPosition: number = inputElement.selectionStart || 0;
